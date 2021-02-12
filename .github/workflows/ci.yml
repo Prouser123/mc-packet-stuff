@@ -32,7 +32,8 @@ jobs:
           name: sounds-${{ matrix.version }}
           path: ${{ env.working-directory }}/sounds.json
   ids-builder:
-    runs-on: ubuntu-20.04env:
+    runs-on: ubuntu-20.04
+    env:
       working-directory: ./ids
     steps:
       - name: Checkout
