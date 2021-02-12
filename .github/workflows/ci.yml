@@ -32,7 +32,8 @@ jobs:
           name: sounds-${{ matrix.version }}
           path: ${{ env.working-directory }}/sounds.json
   ids-builder:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-20.04env:
+      working-directory: ./ids
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -42,13 +43,15 @@ jobs:
           node-version: 14.x
       - name: Install project dependencies
         run: npm install --ignore-scripts
+        working-directory: ${{ env.working-directory }}
       - name: Build json data
         run: node index.js
+        working-directory: ${{ env.working-directory }}
       - name: Send data to publish job
         uses: actions/upload-artifact@v2
         with:
           name: ids
-          path: data.json
+          path: ${{ env.working-directory }}/data.json
   publisher:
     needs: [sounds-builder, ids-builder]
     runs-on: ubuntu-20.04
