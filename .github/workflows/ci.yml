@@ -57,6 +57,19 @@ jobs:
     needs: [sounds-builder, ids-builder]
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
       - uses: actions/download-artifact@v2
-      - name: Display structure of downloaded files
-        run: ls -lR
+      - name: Run Generate sounds-per-protocol data
+        run: node sounds/sounds-per-protocol/index.js
+      - name: publisher - create publishing directory and move files into it 
+        run: node .github/actions-ci-publisher-dir-setup.js
+      - name: publisher - create artifact from dist directory
+        uses: actions/upload-artifact@v2
+        with:
+          name: publisher-job-output
+          path: dist/
