@@ -1,0 +1,5 @@
+# Root .gitignore
+
+# Sound stuff
+sounds-[1-10]*/
+knownSoundIds.json
