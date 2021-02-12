@@ -44,7 +44,7 @@ jobs:
           name: ids
           path: data.json
   publisher:
-    needs: [builder]
+    needs: [sounds-builder, ids-builder]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/download-artifact@v2
